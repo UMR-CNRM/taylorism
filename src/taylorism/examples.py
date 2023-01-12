@@ -24,18 +24,18 @@ class Sleeper(Worker):
     """
 
     _footprint = dict(
-        info = "Sleeps.",
-        attr = dict(
-            sleeping_time = dict(
-                info     = "Sleeping time in s.",
-                values   = [0.001, 0.01, 0.1] + list(range(10)) + list(range(10, 65, 5)),
-                type     = float,
+        info="Sleeps.",
+        attr=dict(
+            sleeping_time=dict(
+                info="Sleeping time in s.",
+                values=[0.001, 0.01, 0.1] + list(range(10)) + list(range(10, 65, 5)),
+                type=float,
             ),
-            wakeup_sentence = dict(
-                info     = "What to say after sleep.",
-                optional = True,
-                access   = 'rwx',
-                default  = 'Hello !',
+            wakeup_sentence=dict(
+                info="What to say after sleep.",
+                optional=True,
+                access='rwx',
+                default='Hello !',
             ),
         )
     )
@@ -58,14 +58,14 @@ class Logarithmer(Worker):
     an example of using shared numpy arrays among workers.
     """
     _footprint = dict(
-        attr = dict(
-            row = dict(
-                info = "Index of the row of the array on which the Worker is supposed to work.",
-                type = int),
-            array = dict(
-                info   = "The shared-memory array on which to work on.",
-                type   = SharedNumpyArray,
-                access = 'rwx')
+        attr=dict(
+            row=dict(
+                info="Index of the row of the array on which the Worker is supposed to work.",
+                type=int),
+            array=dict(
+                info="The shared-memory array on which to work on.",
+                type=SharedNumpyArray,
+                access='rwx')
         )
     )
 
@@ -82,17 +82,17 @@ class Summer(Worker):
     This needs and illustrates process-safetiness.
     """
     _footprint = dict(
-        attr = dict(
-            value = dict(
-                info = "Value to be added by the worker.",
-                type = int),
-            shared_sum = dict(
-                info   = "The shared-memory array on which to sum.",
-                type   = SharedNumpyArray,
-                access = 'rwx'),
-            use_lock = dict(
-                info = "Whether to use the lock (thread-safe) or not (may lead to a wrong result !).",
-                type = bool)
+        attr=dict(
+            value=dict(
+                info="Value to be added by the worker.",
+                type=int),
+            shared_sum=dict(
+                info="The shared-memory array on which to sum.",
+                type=SharedNumpyArray,
+                access='rwx'),
+            use_lock=dict(
+                info="Whether to use the lock (thread-safe) or not (may lead to a wrong result !).",
+                type=bool)
         )
     )
 
@@ -114,31 +114,31 @@ class MatrixProducter(Worker):
     Again, numpy matrix products may probably be more efficient...
     """
     _footprint = dict(
-        attr = dict(
-            A = dict(
-                info   = "The A shared-memory array matrix.",
-                type   = SharedNumpyArray,
-                access = 'rwx'),
-            B = dict(
-                info   = "The B shared-memory array matrix.",
-                type   = SharedNumpyArray,
-                access = 'rwx'),
-            C = dict(
-                info   = "The C shared-memory array matrix.",
-                type   = SharedNumpyArray,
-                access = 'rwx'),
-            i1 = dict(
-                info = "The first index i of the the Worker is responsible for.",
-                type = int),
-            i2 = dict(
-                info = "The last index i of the the Worker is responsible for.",
-                type = int),
-            j1 = dict(
-                info = "The first index j of the the Worker is responsible for.",
-                type = int),
-            j2 = dict(
-                info = "The first index j of the the Worker is responsible for.",
-                type = int),
+        attr=dict(
+            A=dict(
+                info="The A shared-memory array matrix.",
+                type=SharedNumpyArray,
+                access='rwx'),
+            B=dict(
+                info="The B shared-memory array matrix.",
+                type=SharedNumpyArray,
+                access='rwx'),
+            C=dict(
+                info="The C shared-memory array matrix.",
+                type=SharedNumpyArray,
+                access='rwx'),
+            i1=dict(
+                info="The first index i of the the Worker is responsible for.",
+                type=int),
+            i2=dict(
+                info="The last index i of the the Worker is responsible for.",
+                type=int),
+            j1=dict(
+                info="The first index j of the the Worker is responsible for.",
+                type=int),
+            j2=dict(
+                info="The first index j of the the Worker is responsible for.",
+                type=int),
         )
     )
 

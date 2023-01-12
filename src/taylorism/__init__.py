@@ -120,36 +120,36 @@ class Worker(FootprintBase):
     _abstract = True
     _collector = ('worker',)
     _footprint = dict(
-        attr = dict(
-            name = dict(
-                info     = 'Name of the worker.',
-                optional = True,
-                default  = None,
-                access   = 'rwx',
+        attr=dict(
+            name=dict(
+                info='Name of the worker.',
+                optional=True,
+                default=None,
+                access='rwx',
             ),
-            memory = dict(
-                info     = 'Memory that should be used by the worker (in MiB).',
-                optional = True,
-                default  = 0.,
-                type     = float,
+            memory=dict(
+                info='Memory that should be used by the worker (in MiB).',
+                optional=True,
+                default=0.,
+                type=float,
             ),
-            expected_time = dict(
-                info     = 'How long the worker is expected to run (in s).',
-                optional = True,
-                default  = 0.,
-                type     = float,
+            expected_time=dict(
+                info='How long the worker is expected to run (in s).',
+                optional=True,
+                default=0.,
+                type=float,
             ),
-            scheduler_ticket = dict(
-                info     = 'The slot number given by the scheduler (optional).',
-                optional = True,
-                default  = None,
-                type     = int,
+            scheduler_ticket=dict(
+                info='The slot number given by the scheduler (optional).',
+                optional=True,
+                default=None,
+                type=int,
             ),
-            scheduler_hooks = dict(
-                info     = 'List of callbacks before starting effective task work.',
-                optional = True,
-                default  = FPList(),
-                type     = FPList,
+            scheduler_hooks=dict(
+                info='List of callbacks before starting effective task work.',
+                optional=True,
+                default=FPList(),
+                type=FPList,
             ),
         )
     )

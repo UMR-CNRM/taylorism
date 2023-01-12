@@ -54,11 +54,11 @@ class BaseScheduler(FootprintBase):
     _abstract = True
     _collector = ('scheduler',)
     _footprint = dict(
-        attr = dict(
-            identity = dict(
-                info     = "Scheduler identity.",
-                optional = True,
-                default  = 'anonymous',
+        attr=dict(
+            identity=dict(
+                info="Scheduler identity.",
+                optional=True,
+                default='anonymous',
             ),
         )
     )
@@ -101,11 +101,11 @@ class NewLaxistScheduler(BaseScheduler):
     """No sorting is done !"""
 
     _footprint = dict(
-        attr = dict(
-            nosort = dict(
-                alias  = ('laxist', 'unsorted'),
-                values = (True,),
-                type   = bool,
+        attr=dict(
+            nosort=dict(
+                alias=('laxist', 'unsorted'),
+                values=(True,),
+                type=bool,
             ),
         )
     )
@@ -124,10 +124,10 @@ class NewLimitedScheduler(BaseScheduler):
 
     _abstract = True,
     _footprint = dict(
-        attr = dict(
-            limit = dict(
-                values = ['threads', 'memory', 'mem', 'threads+memory'],
-                remap  = dict(mem = 'memory'),
+        attr=dict(
+            limit=dict(
+                values=['threads', 'memory', 'mem', 'threads+memory'],
+                remap=dict(mem='memory'),
             ),
         )
     )
@@ -179,15 +179,15 @@ class NewMaxThreadsScheduler(NewLimitedScheduler):
     _footprint = [
         _binded_fpattr,
         dict(
-            attr = dict(
-                limit = dict(
-                    values = ['threads', 'processes'],
-                    remap  = dict(processes = 'threads'),
+            attr=dict(
+                limit=dict(
+                    values=['threads', 'processes'],
+                    remap=dict(processes='threads'),
                 ),
-                max_threads = dict(
-                    alias  = ('maxpc', 'maxthreads'),
-                    remap  = {0: multiprocessing.cpu_count() / 2},
-                    type   = int,
+                max_threads=dict(
+                    alias=('maxpc', 'maxthreads'),
+                    remap={0: multiprocessing.cpu_count() / 2},
+                    type=int,
                 ),
             )
         )
@@ -217,30 +217,30 @@ class NewMaxMemoryScheduler(NewLimitedScheduler):
     _footprint = [
         _binded_fpattr,
         dict(
-            attr = dict(
-                limit = dict(
-                    values = ['memory', 'mem'],
-                    remap  = dict(mem = 'memory'),
+            attr=dict(
+                limit=dict(
+                    values=['memory', 'mem'],
+                    remap=dict(mem='memory'),
                 ),
-                max_memory = dict(
-                    info     = "Amount of usable memroy (in MiB)",
-                    optional = True,
-                    type     = float,
-                    access   = 'rwx',
+                max_memory=dict(
+                    info="Amount of usable memroy (in MiB)",
+                    optional=True,
+                    type=float,
+                    access='rwx',
                 ),
-                memory_per_task = dict(
-                    info     = ("If a worker do not provide any information on memory, " +
-                                "request at least *memory_per_task* MiB of memory."),
-                    optional = True,
-                    default  = 2048.,
-                    type     = float,
+                memory_per_task=dict(
+                    info=("If a worker do not provide any information on memory, " +
+                          "request at least *memory_per_task* MiB of memory."),
+                    optional=True,
+                    default=2048.,
+                    type=float,
                 ),
-                memory_max_percentage = dict(
-                    info     = ("Max memory level as a fraction of the total" +
-                                "system memory (used only if max_memroy is not provided)."),
-                    optional = True,
-                    default  = 0.75,
-                    type     = float,
+                memory_max_percentage=dict(
+                    info=("Max memory level as a fraction of the total" +
+                          "system memory (used only if max_memroy is not provided)."),
+                    optional=True,
+                    default=0.75,
+                    type=float,
                 ),
             )
         )
@@ -293,14 +293,14 @@ class LongerFirstScheduler(NewMaxMemoryScheduler):
     """
 
     _footprint = dict(
-        attr = dict(
-            limit = dict(
-                values = ['threads+memory'],
+        attr=dict(
+            limit=dict(
+                values=['threads+memory'],
             ),
-            max_threads = dict(
-                alias  = ('maxpc', 'maxthreads'),
-                remap  = {0: multiprocessing.cpu_count() / 2},
-                type   = int,
+            max_threads=dict(
+                alias=('maxpc', 'maxthreads'),
+                remap={0: multiprocessing.cpu_count() / 2},
+                type=int,
             ),
         )
     )
@@ -338,10 +338,10 @@ class NewSingleOpenFileScheduler(NewMaxThreadsScheduler):
     """
 
     _footprint = dict(
-        attr = dict(
-            singlefile = dict(
-                values = (True,),
-                type   = bool,
+        attr=dict(
+            singlefile=dict(
+                values=(True,),
+                type=bool,
             ),
         )
     )

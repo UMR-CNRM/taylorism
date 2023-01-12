@@ -4,11 +4,6 @@ from __future__ import print_function, absolute_import, unicode_literals, divisi
 
 import sys
 import time
-numpy_looks_fine = True
-try:
-    import numpy as np
-except ImportError:
-    numpy_looks_fine = False
 
 from unittest import TestCase, main, skipIf
 
@@ -18,6 +13,13 @@ from taylorism import examples, schedulers, taylorism_log
 from bronx.fancies import loggers
 from bronx.system import interrupt  # because subprocesses must be killable properly
 from bronx.system import cpus as cpus_tool
+
+try:
+    import numpy as np
+except ImportError:
+    numpy_looks_fine = False
+else:
+    numpy_looks_fine = True
 
 tloglevel = 'CRITICAL'
 tloglevel_taylorism = 'CRITICAL'
@@ -43,21 +45,21 @@ class Succeeder(examples.Sleeper):
     """Does nothing, but succeeds at it."""
 
     _footprint = dict(
-        priority = dict(
-            level = footprints.priorities.top.level('debug')
+        priority=dict(
+            level=footprints.priorities.top.level('debug')
         ),
-        info = "Suceeds.",
-        attr = dict(
-            succeed = dict(
-                info     = "Supposed to succeed.",
-                type     = bool,
-                values   = [True]
+        info="Suceeds.",
+        attr=dict(
+            succeed=dict(
+                info="Supposed to succeed.",
+                type=bool,
+                values=[True]
             ),
-            bind_test = dict(
-                info     = "Do the bind test.",
-                type     = bool,
-                optional = True,
-                default  = False,
+            bind_test=dict(
+                info="Do the bind test.",
+                type=bool,
+                optional=True,
+                default=False,
             )
         )
     )
@@ -75,15 +77,15 @@ class Failer(examples.Sleeper):
     """Does nothing, but fails at it."""
 
     _footprint = dict(
-        priority = dict(
-            level = footprints.priorities.top.level('debug')
+        priority=dict(
+            level=footprints.priorities.top.level('debug')
         ),
-        info = "Fails.",
-        attr = dict(
-            succeed = dict(
-                info   = "Supposed to fail.",
-                type   = bool,
-                values = [False]
+        info="Fails.",
+        attr=dict(
+            succeed=dict(
+                info="Supposed to fail.",
+                type=bool,
+                values=[False]
             ),
         )
     )
@@ -143,10 +145,13 @@ class UtTaylorism(TestCase):
                 scheduler=scheduler,
             )
             time.sleep(0.2)
-            boss.set_instructions(dict(succeed=True,), individual_instructions=dict(sleeping_time=[0.001, ]))
+            boss.set_instructions(dict(succeed=True,),
+                                  individual_instructions=dict(sleeping_time=[0.001, ]))
             boss.wait_till_finished()
             report = boss.get_report()
-            self.assertEqual(len(report['workers_report']), 4, "4 instructions have been sent, which is not the size of report.")
+            self.assertEqual(len(report['workers_report']),
+                             4,
+                             "4 instructions have been sent, which is not the size of report.")
 
     @stderr2out_deco
     def test_toomany_instr_after_crash(self):
@@ -200,7 +205,9 @@ class UtTaylorism(TestCase):
         with self.assertRaises(ValueError):
             boss = taylorism.run_as_server(
                 common_instructions=dict(),
-                individual_instructions=dict(name=['alfred', 'alfred'], sleeping_time=[60, 60], succeed=[True, True]),
+                individual_instructions=dict(name=['alfred', 'alfred'],
+                                             sleeping_time=[60, 60],
+                                             succeed=[True, True]),
                 scheduler=footprints.proxy.scheduler(limit='threads', max_threads=2),
             )
             boss.wait_till_finished()
@@ -215,7 +222,9 @@ class UtTaylorism(TestCase):
         )
         boss.wait_till_finished()
         report = boss.get_report()
-        self.assertEqual(len(report['workers_report']), 2, "2 instructions have been sent, which is not the size of report.")
+        self.assertEqual(len(report['workers_report']),
+                         2,
+                         "2 instructions have been sent, which is not the size of report.")
 
     @skipIf(not numpy_looks_fine, "NumPy is unavailable.")
     def test_sharedmemory_array(self):
@@ -230,7 +239,10 @@ class UtTaylorism(TestCase):
             sharedmemory_common_instructions=dict(shared_sum=s)
         )
         boss.wait_till_finished()
-        self.assertEqual(s[0], sum(vals), "sharedmemory array has wrong value:{} instead of expected: {}.".format(s[0], sum(vals)))
+        self.assertEqual(s[0],
+                         sum(vals),
+                         "sharedmemory array has wrong value:{} instead of expected: {}."
+                         .format(s[0], sum(vals)))
 
 
 if __name__ == '__main__':
