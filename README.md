@@ -2,6 +2,7 @@
 
 [![Custom CI](https://github.com/UMR-CNRM/taylorism/actions/workflows/lint_test_and_doc.yml/badge.svg)](https://github.com/UMR-CNRM/taylorism/actions/workflows/lint_test_and_doc.yml)
 [![Documentation Status](https://readthedocs.org/projects/taylorism/badge/?version=latest)](https://taylorism.readthedocs.io/)
+[![PyPI version](https://badge.fury.io/py/taylorism.svg)](https://badge.fury.io/py/taylorism)
 
 *taylorism* is a framework for the parallelisation of tasks.
 
